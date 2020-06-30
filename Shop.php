@@ -16,11 +16,11 @@ class Shop
 
     public function createQueue(){
         foreach (array_diff_key($this->clients, $this->queue) as $key => $client) {
-            sleep(rand(1,3));
+            sleep(rand(1,2));
             print_r('Пришел клиент - ' . $client . "\n");
             $this->queue[] = $client;
             unset($this->clients[$key]);
-            if(!$this->isSpaceQueue()){
+            if(!$this->isSpaceQueue() || $this->isEmptyClients()){
                 $this->servise();
                 break;
             }
@@ -29,7 +29,7 @@ class Shop
 
     public function servise(){
         foreach ($this->queue as $key => $client){
-            sleep(rand(1,5));
+            sleep(rand(1,2));
             print_r('Обслужен клиент - ' . $client . "\n");
             unset($this->queue[$key]);
             if($this->isSpaceQueue() && !$this->isEmptyClients()){
